@@ -7,5 +7,7 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
+Route::get('/', function () {
+    return redirect()->route('home');
+});
 Route::get('/home', [Admin::class, 'home'])->name('home');
-Route::get('/', [Admin::class, 'home']);
