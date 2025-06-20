@@ -147,5 +147,26 @@
         sales_chart_options,
     );
     sales_chart.render();
+
+
+   
 </script>
 <!--end::Script-->
+
+
+<script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
+<script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+<script>
+    //jquery datepicker
+    $(function() {
+        $( ".datepicker" ).datepicker({
+            dateFormat: 'dd-mm-yy',
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "1900:+10"
+        });
+    });
+
+
+</script>
