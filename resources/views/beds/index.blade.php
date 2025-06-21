@@ -49,6 +49,10 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @php
+                                            $total_beds = $beds->sum('no_of_beds');
+                                            $total_beds = $total_beds ? $total_beds : 0;
+                                        @endphp
                                         @foreach($beds as $key => $bed)
                                             <tr>
                                                 <td>{{ $key + 1 }}</td>
@@ -70,6 +74,15 @@
                                             </tr>
                                         @endforeach
                                     </tbody>
+
+                                    <tfoot>
+                                        <tr>
+                                            <th colspan="2" class="text-end">Total Beds:</th>
+                                            <th>{{ $total_beds }}</th>
+                                            <th colspan="3"></th>
+                                        </tr>
+                                    </tfoot>
+
                                 </table>
                             </div>
                             <!-- /.card-body -->
