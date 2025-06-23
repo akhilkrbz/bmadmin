@@ -11,7 +11,10 @@ class BedController extends Controller
     public function index()
     {
         $beds = Bed::select("*")->orderBy('date_of_bed', 'desc')->orderBy('id', 'desc')->paginate(10);
-        return view('beds.index', compact('beds'));
+
+        $total_beds = Bed::sum('no_of_beds');
+
+        return view('beds.index', compact('beds', 'total_beds'));
     }
 
     public function create()

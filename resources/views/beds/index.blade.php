@@ -34,6 +34,13 @@
                         <div class="card mb-4">
                             <div class="card-header">
                                 <h3 class="card-title">Beds List</h3>
+                                <button type="button" class="btn btn-success position-relative float-end">
+                                    Total Beds
+                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                        {{ $total_beds }}
+                                        <span class="visually-hidden">unread messages</span>
+                                    </span>
+                                    </button>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
