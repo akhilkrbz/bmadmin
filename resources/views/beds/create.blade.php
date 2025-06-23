@@ -84,7 +84,7 @@
                                 <!--begin::Footer-->
                                 <div class="card-footer">
                                     <button type="submit" class="btn btn-warning">Submit</button>
-                                    <button type="submit" class="btn float-end">Cancel</button>
+                                    <button type="button" class="btn float-end">Cancel</button>
                                 </div>
                                 <!--end::Footer-->
                             </form>
