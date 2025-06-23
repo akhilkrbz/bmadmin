@@ -41,7 +41,7 @@ class HarvestController extends Controller
                 'bed_id' => $bed_id,
             ]);
         }
-        return redirect()->route('harvest.index')->with('success', 'Harvest record created successfully.');
+        return redirect()->route('harvest.create')->with('success', 'Harvest record created successfully.');
     }
 
     public function show(Harvest $harvest)

@@ -62,7 +62,7 @@
                 <!--begin::Small Box Widget 2-->
                 <div class="small-box text-bg-success">
                   <div class="inner">
-                    <h3>{{ $total_harvest }} Kg</h3>
+                    <h3>{{ number_format($total_harvest, 2) }} Kg</h3>
                     <p>Total harvest</p>
                   </div>
                   <svg
