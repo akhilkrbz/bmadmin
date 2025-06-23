@@ -31,7 +31,8 @@ class BedController extends Controller
         $validated['created_by'] = 1;//auth()->id();
         $validated['created_at'] = Carbon::now();
         Bed::create($validated);
-        return redirect()->route('beds.index')->with('success', 'Bed created successfully.');
+        // return redirect()->route('beds.index')->with('success', 'Bed created successfully.');
+        return redirect()->route('beds.create')->with('success', 'Bed created successfully.');
     }
 
     public function show(Bed $bed)
