@@ -51,7 +51,7 @@
                                             <th>Date of Bed</th>
                                             <th>No of Beds</th>
                                             <th>Description</th>
-                                            <th>Created By</th>
+                                            <!-- <th>Created By</th> -->
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
@@ -66,7 +66,7 @@
                                                 <td>{{ $bed->date_of_bed }}</td>
                                                 <td>{{ $bed->no_of_beds }}</td>
                                                 <td>{{ $bed->description }}</td>
-                                                <td>{{ $bed->created_by }}</td>
+                                                <!-- <td>{{ $bed->created_by }}</td> -->
                                                 <td>
                                                     <a href="{{ route('beds.edit', $bed) }}"><button type="button" class="btn btn-primary mb-2">Edit</button></a>
                                                     
@@ -86,7 +86,7 @@
                                         <tr>
                                             <th colspan="2" class="text-end">Total Beds:</th>
                                             <th>{{ $total_beds }}</th>
-                                            <th colspan="3"></th>
+                                            <th colspan="2"></th>
                                         </tr>
                                     </tfoot>
 

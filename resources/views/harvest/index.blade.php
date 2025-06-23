@@ -45,7 +45,7 @@
                                             <th>Total Quantity (In KG)</th>
                                             <th>Description</th>
                                             <!-- <th>Created By</th> -->
-                                            <th>Beds</th>
+                                            <th>Beds From</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
