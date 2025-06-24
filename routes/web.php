@@ -3,6 +3,8 @@
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\BedController;
 use App\Http\Controllers\HarvestController;
+use App\Http\Controllers\ExpenseTypeController;
+use App\Http\Controllers\ExpenseController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -20,3 +22,9 @@ Route::resource('beds', BedController::class);
 
 // Harvest
 Route::resource('harvest', HarvestController::class);
+
+// Expense Types
+Route::resource('expense-types', ExpenseTypeController::class);
+
+// Expenses
+Route::resource('expenses', ExpenseController::class);

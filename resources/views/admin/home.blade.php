@@ -62,8 +62,8 @@
                 <!--begin::Small Box Widget 2-->
                 <div class="small-box text-bg-success">
                   <div class="inner">
-                    <h3>{{ number_format($total_harvest, 2) }} Kg</h3>
-                    <p>Total harvest</p>
+                    <h3>{{ number_format($monthly_harvest, 2) }} Kg</h3>
+                    <p>Montly harvest ({{ now()->format('M') }})</p>
                   </div>
                   <svg
                     class="small-box-icon"
@@ -118,8 +118,8 @@
                 <!--begin::Small Box Widget 4-->
                 <div class="small-box text-bg-danger">
                   <div class="inner">
-                    <h3>65</h3>
-                    <p>Monthly Expense</p>
+                    <h3>₹ {{ $monthly_expenses }}</h3>
+                    <p>Monthly Expense ({{ now()->format('M') }})</p>
                   </div>
                   <svg
                     class="small-box-icon"

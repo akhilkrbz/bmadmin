@@ -35,12 +35,14 @@
                             <div class="card-header">
                                 <h3 class="card-title">Beds List</h3>
                                 <button type="button" class="btn btn-success position-relative float-end">
-                                    Total Beds
-                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                        {{ $total_beds }}
-                                        <span class="visually-hidden">unread messages</span>
-                                    </span>
-                                    </button>
+                                    {{ $total_beds }}
+                                    
+                                </button>
+                                <button type="button" class="btn btn-default position-relative float-end me-2">
+                                    <b>Total Beds: </b>
+                                    
+                                </button>
+                                
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -63,7 +65,7 @@
                                         @foreach($beds as $key => $bed)
                                             <tr>
                                                 <td>{{ $key + 1 }}</td>
-                                                <td>{{ $bed->date_of_bed }}</td>
+                                                <td>{{ date('d-m-Y', strtotime($bed->date_of_bed)) }}</td>
                                                 <td>{{ $bed->no_of_beds }}</td>
                                                 <td>{{ $bed->description }}</td>
                                                 <!-- <td>{{ $bed->created_by }}</td> -->
