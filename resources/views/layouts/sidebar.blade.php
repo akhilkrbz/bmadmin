@@ -157,7 +157,7 @@
 
         <li class="nav-item">
           <a href="#" class="nav-link">
-            <i class="nav-icon bi bi-box-seam-fill"></i>
+            <i class="nav-icon bi bi-cart"></i>
             <p>
               Sales
               <i class="nav-arrow bi bi-chevron-right"></i>
@@ -183,7 +183,7 @@
 
         <li class="nav-item">
           <a href="#" class="nav-link">
-            <i class="nav-icon bi bi-box-seam-fill"></i>
+            <i class="nav-icon bi bi-graph-up"></i>
             <p>
               Reports
               <i class="nav-arrow bi bi-chevron-right"></i>
