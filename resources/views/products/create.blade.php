@@ -20,6 +20,7 @@
             <div class="container-fluid">
                 <div class="row g-4">
                     <div class="col-8">
+                        @include('common.alerts')
                         <div class="card">
                             <div class="card-body">
                                 <form action="{{ route('products.store') }}" method="POST">
