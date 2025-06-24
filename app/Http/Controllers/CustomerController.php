@@ -27,7 +27,7 @@ class CustomerController extends Controller
             'phone' => 'nullable|string|max:20',
         ]);
         Customer::create($validated);
-        return redirect()->route('customer.index')->with('success', 'Customer created successfully.');
+        return redirect()->route('customer.create')->with('success', 'Customer created successfully.');
     }
 
     public function show(Customer $customer)
