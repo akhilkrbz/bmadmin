@@ -6,6 +6,7 @@ use App\Http\Controllers\HarvestController;
 use App\Http\Controllers\ExpenseTypeController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CustomerController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -32,3 +33,6 @@ Route::resource('expenses', ExpenseController::class);
 
 // Products
 Route::resource('products', ProductController::class);
+
+// Customers
+Route::resource('customer', CustomerController::class);

@@ -129,6 +129,31 @@
           </ul>
         </li>
 
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="nav-icon bi bi-box-seam-fill"></i>
+            <p>
+              Customer
+              <i class="nav-arrow bi bi-chevron-right"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{ route('customer.index') }}" class="nav-link">
+                <i class="nav-icon bi bi-circle"></i>
+                <p>Customer List</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ route('customer.create') }}" class="nav-link">
+                <i class="nav-icon bi bi-circle"></i>
+                <p>Add Customer</p>
+              </a>
+            </li>
+            
+          </ul>
+        </li>
+
 
         <li class="nav-item">
           <a href="#" class="nav-link">
