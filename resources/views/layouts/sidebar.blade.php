@@ -114,13 +114,13 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="./widgets/small-box.html" class="nav-link">
+              <a href="{{ route('products.index') }}" class="nav-link">
                 <i class="nav-icon bi bi-circle"></i>
                 <p>Products List</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="./widgets/info-box.html" class="nav-link">
+              <a href="{{ route('products.create') }}" class="nav-link">
                 <i class="nav-icon bi bi-circle"></i>
                 <p>Add Product</p>
               </a>

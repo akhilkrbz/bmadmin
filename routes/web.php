@@ -5,6 +5,7 @@ use App\Http\Controllers\BedController;
 use App\Http\Controllers\HarvestController;
 use App\Http\Controllers\ExpenseTypeController;
 use App\Http\Controllers\ExpenseController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -28,3 +29,6 @@ Route::resource('expense-types', ExpenseTypeController::class);
 
 // Expenses
 Route::resource('expenses', ExpenseController::class);
+
+// Products
+Route::resource('products', ProductController::class);
