@@ -56,7 +56,7 @@
 
         <li class="nav-item">
           <a href="#" class="nav-link">
-            <i class="nav-icon bi bi-box-seam-fill"></i>
+            <i class="nav-icon bi bi-basket-fill"></i>
             <p>
               Harvest
               <i class="nav-arrow bi bi-chevron-right"></i>
@@ -81,7 +81,7 @@
 
         <li class="nav-item">
           <a href="#" class="nav-link">
-            <i class="nav-icon bi bi-box-seam-fill"></i>
+            <i class="nav-icon bi bi-currency-dollar"></i>
             <p>
               Expenses
               <i class="nav-arrow bi bi-chevron-right"></i>
@@ -106,7 +106,7 @@
 
         <li class="nav-item">
           <a href="#" class="nav-link">
-            <i class="nav-icon bi bi-box-seam-fill"></i>
+            <i class="nav-icon bi bi-box-seam"></i>
             <p>
               Products
               <i class="nav-arrow bi bi-chevron-right"></i>
@@ -131,7 +131,7 @@
 
         <li class="nav-item">
           <a href="#" class="nav-link">
-            <i class="nav-icon bi bi-box-seam-fill"></i>
+            <i class="nav-icon bi bi-people-fill"></i>
             <p>
               Customer
               <i class="nav-arrow bi bi-chevron-right"></i>
