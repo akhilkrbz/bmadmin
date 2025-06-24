@@ -63,7 +63,7 @@
                 <div class="small-box text-bg-success">
                   <div class="inner">
                     <h3>{{ number_format($monthly_harvest, 2) }} Kg</h3>
-                    <p>Montly harvest ({{ now()->format('M') }})</p>
+                    <p>Montly Harvest ({{ now()->format('M') }})</p>
                   </div>
                   <svg
                     class="small-box-icon"
