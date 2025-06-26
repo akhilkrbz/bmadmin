@@ -21,7 +21,7 @@ class LedgerController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'type' => 'required|in:direct,indirect',
+            'type' => 'required|in:direct,indirect,customer,shop,supplier',
             'title' => 'required|string|max:200',
             'description' => 'nullable|string',
             'status' => 'required|integer',
@@ -43,7 +43,7 @@ class LedgerController extends Controller
     public function update(Request $request, Ledger $ledger)
     {
         $validated = $request->validate([
-            'type' => 'required|in:direct,indirect',
+            'type' => 'required|in:direct,indirect,customer,shop,supplier',
             'title' => 'required|string|max:200',
             'description' => 'nullable|string',
             'status' => 'required|integer',
