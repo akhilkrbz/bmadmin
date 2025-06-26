@@ -154,7 +154,7 @@
           </ul>
         </li>
 
-         <li class="nav-item">
+        <li class="nav-item">
           <a href="#" class="nav-link">
             <i class="nav-icon bi bi-cart"></i>
             <p>
@@ -173,6 +173,32 @@
               <a href="{{ route('purchases.create') }}" class="nav-link">
                 <i class="nav-icon bi bi-circle"></i>
                 <p>New Purchase</p>
+              </a>
+            </li>
+            
+          </ul>
+        </li>
+
+
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="nav-icon bi bi-cart"></i>
+            <p>
+              Payment Voucher
+              <i class="nav-arrow bi bi-chevron-right"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{ route('payment_vouchers.index') }}" class="nav-link">
+                <i class="nav-icon bi bi-circle"></i>
+                <p>Payment Vouchers</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ route('payment_vouchers.create') }}" class="nav-link">
+                <i class="nav-icon bi bi-circle"></i>
+                <p>New Payment Voucher</p>
               </a>
             </li>
             

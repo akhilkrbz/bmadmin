@@ -24,7 +24,15 @@ class PaymentVoucherController extends Controller
             ->orWhere('type', 'indirect')
             ->orderBy('title')
             ->get();
-        $purchases = Purchase::with('supplier')->where('payment_mode', 'credit')
+        // Only get purchases where purchase total_amount > sum of payment vouchers for that purchase
+        $purchases = Purchase::with('supplier')
+            ->where('payment_mode', 'credit')
+            ->where(function($query) {
+                $query->whereRaw('total_amount > (
+                    SELECT COALESCE(SUM(amount),0) FROM payment_vouchers 
+                    WHERE voucher_type = ? AND voucher_type_id = purchases.id
+                )', ['purchase']);
+            })
             ->orderBy('purchase_date', 'desc')
             ->get();
         return view('payment_vouchers.create', compact('users', 'ledgers', 'purchases'));
