@@ -7,6 +7,7 @@ use App\Http\Controllers\LedgerTypeController;
 use App\Http\Controllers\LedgerController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\PurchaseController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -30,6 +31,9 @@ Route::resource('ledgers', LedgerController::class);
 
 // Products
 Route::resource('products', ProductController::class);
+
+// Purchases
+Route::resource('purchases', PurchaseController::class);
 
 // Customers
 Route::resource('customer', CustomerController::class);

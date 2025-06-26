@@ -13,6 +13,7 @@ return new class extends Migration {
             $table->unsignedInteger('supplier_id')->nullable();
             $table->enum('payment_mode', ['cash', 'bank', 'credit'])->default('cash');
             $table->float('total_amount')->nullable();
+            $table->text('description')->nullable();
             $table->dateTime('created_at')->nullable();
             $table->unsignedBigInteger('created_by')->nullable();
             $table->foreign('supplier_id')->references('id')->on('ledgers')->onDelete('set null');
