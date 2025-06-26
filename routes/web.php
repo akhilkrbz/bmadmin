@@ -8,6 +8,7 @@ use App\Http\Controllers\LedgerController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\PaymentVoucherController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -34,6 +35,10 @@ Route::resource('products', ProductController::class);
 
 // Purchases
 Route::resource('purchases', PurchaseController::class);
+
+// Payment Vouchers
+Route::resource('payment_vouchers', PaymentVoucherController::class);
+Route::get('payment-vouchers/total-amount', [PaymentVoucherController::class, 'getTotalAmount']);
 
 // Customers
 Route::resource('customer', CustomerController::class);
