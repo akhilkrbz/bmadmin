@@ -5,12 +5,12 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-6">
-                        <h3 class="mb-0">Expenses List</h3>
+                        <h3 class="mb-0">Ledger List</h3>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-end">
                             <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Expenses List</li>
+                            <li class="breadcrumb-item active" aria-current="page">Ledger List</li>
                         </ol>
                     </div>
                 </div>
@@ -23,8 +23,8 @@
                         @include('common.alerts')
                         <div class="card mb-4">
                             <div class="card-header">
-                                <h3 class="card-title">Expenses List</h3>
-                                <a href="{{ route('expenses.create') }}" class="btn btn-primary float-end">Add Expense</a>
+                                <h3 class="card-title">Ledger List</h3>
+                                <a href="{{ route('ledgers.create') }}" class="btn btn-primary float-end">Add Ledger</a>
                             </div>
                             <div class="card-body">
                                 <table class="table table-bordered">
@@ -32,28 +32,24 @@
                                         <tr>
                                             <th>Sl.No.</th>
                                             <th>Type</th>
-                                            <th>Date</th>
-                                            <th>Amount</th>
+                                            <th>Title</th>
                                             <th>Description</th>
-                                            <!-- <th>Created By</th> -->
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($expenses as $key => $expense)
+                                        @foreach($ledgers as $key => $ledger)
                                             <tr>
                                                 <td>{{ $key + 1 }}</td>
-                                                <td>{{ optional($expense->expenseType)->title }}</td>
-                                                <td>{{ date('d-m-Y', strtotime($expense->date)) }}</td>
-                                                <td>{{ $expense->amount }}</td>
-                                                <td>{{ $expense->description }}</td>
-                                                <!-- <td>{{ $expense->created_by }}</td> -->
+                                                <td>{{ $ledger->type }}</td>
+                                                <td>{{ $ledger->title }}</td>
+                                                <td>{{ $ledger->description }}</td>
                                                 <td>
-                                                    <a href="{{ route('expenses.edit', $expense) }}" class="btn btn-primary btn-sm">Edit</a>
-                                                    <form action="{{ route('expenses.destroy', $expense) }}" method="POST" style="display:inline;">
+                                                    <a href="{{ route('ledgers.edit', $ledger) }}" class="btn btn-primary btn-sm">Edit</a>
+                                                    <form action="{{ route('ledgers.destroy', $ledger) }}" method="POST" style="display:inline;">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
+                                                        <button disabled type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
                                                     </form>
                                                 </td>
                                             </tr>
@@ -64,18 +60,18 @@
                             <div class="card-footer clearfix">
                                 <ul class="pagination pagination-sm m-0 float-end">
                                     {{-- Previous Page Link --}}
-                                    <li class="page-item {{ $expenses->onFirstPage() ? 'disabled' : '' }}">
-                                        <a class="page-link" href="{{ $expenses->previousPageUrl() ?? '#' }}" tabindex="-1">«</a>
+                                    <li class="page-item {{ $ledgers->onFirstPage() ? 'disabled' : '' }}">
+                                        <a class="page-link" href="{{ $ledgers->previousPageUrl() ?? '#' }}" tabindex="-1">«</a>
                                     </li>
                                     {{-- Pagination Elements --}}
-                                    @for ($page = 1; $page <= $expenses->lastPage(); $page++)
-                                        <li class="page-item {{ $expenses->currentPage() == $page ? 'active' : '' }}">
-                                            <a class="page-link" href="{{ $expenses->url($page) }}">{{ $page }}</a>
+                                    @for ($page = 1; $page <= $ledgers->lastPage(); $page++)
+                                        <li class="page-item {{ $ledgers->currentPage() == $page ? 'active' : '' }}">
+                                            <a class="page-link" href="{{ $ledgers->url($page) }}">{{ $page }}</a>
                                         </li>
                                     @endfor
                                     {{-- Next Page Link --}}
-                                    <li class="page-item {{ $expenses->hasMorePages() ? '' : 'disabled' }}">
-                                        <a class="page-link" href="{{ $expenses->nextPageUrl() ?? '#' }}">»</a>
+                                    <li class="page-item {{ $ledgers->hasMorePages() ? '' : 'disabled' }}">
+                                        <a class="page-link" href="{{ $ledgers->nextPageUrl() ?? '#' }}">»</a>
                                     </li>
                                 </ul>
                             </div>

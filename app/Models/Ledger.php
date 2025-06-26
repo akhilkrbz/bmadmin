@@ -4,12 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ExpenseType extends Model
+class Ledger extends Model
 {
-    protected $table = 'expense_types';
+    protected $table = 'ledgers';
     protected $fillable = [
         'type',
         'title',
+        'description',
         'status',
     ];
     public $timestamps = false;

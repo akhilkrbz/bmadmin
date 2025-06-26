@@ -5,12 +5,12 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-6">
-                        <h3 class="mb-0">Expense Details</h3>
+                        <h3 class="mb-0">Expense Type Details</h3>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-end">
                             <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Expense Details</li>
+                            <li class="breadcrumb-item active" aria-current="page">Expense Type Details</li>
                         </ol>
                     </div>
                 </div>
@@ -22,13 +22,11 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <p><strong>ID:</strong> {{ $expense->id }}</p>
-                                <p><strong>Type:</strong> {{ optional($expense->expenseType)->title }}</p>
-                                <p><strong>Date:</strong> {{ $expense->date }}</p>
-                                <p><strong>Amount:</strong> {{ $expense->amount }}</p>
-                                <p><strong>Description:</strong> {{ $expense->description }}</p>
-                                <p><strong>Created By:</strong> {{ $expense->created_by }}</p>
-                                <a href="{{ route('expenses.index') }}" class="btn btn-secondary">Back to List</a>
+                                <p><strong>ID:</strong> {{ $expenseType->id }}</p>
+                                <p><strong>Type:</strong> {{ $expenseType->type }}</p>
+                                <p><strong>Title:</strong> {{ $expenseType->title }}</p>
+                                <p><strong>Status:</strong> {{ $expenseType->status }}</p>
+                                <a href="{{ route('ledger-types.index') }}" class="btn btn-secondary">Back to List</a>
                             </div>
                         </div>
                     </div>

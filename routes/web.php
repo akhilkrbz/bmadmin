@@ -3,8 +3,8 @@
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\BedController;
 use App\Http\Controllers\HarvestController;
-use App\Http\Controllers\ExpenseTypeController;
-use App\Http\Controllers\ExpenseController;
+use App\Http\Controllers\LedgerTypeController;
+use App\Http\Controllers\LedgerController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CustomerController;
 use Illuminate\Support\Facades\Route;
@@ -25,11 +25,8 @@ Route::resource('beds', BedController::class);
 // Harvest
 Route::resource('harvest', HarvestController::class);
 
-// Expense Types
-Route::resource('expense-types', ExpenseTypeController::class);
-
-// Expenses
-Route::resource('expenses', ExpenseController::class);
+// Ledgers
+Route::resource('ledgers', LedgerController::class);
 
 // Products
 Route::resource('products', ProductController::class);

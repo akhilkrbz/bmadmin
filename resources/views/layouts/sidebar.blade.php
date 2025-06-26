@@ -83,23 +83,23 @@
           <a href="#" class="nav-link">
             <i class="nav-icon bi bi-currency-dollar"></i>
             <p>
-              Expenses
+              Ledgers
               <i class="nav-arrow bi bi-chevron-right"></i>
             </p>
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="{{ route('expense-types.index') }}" class="nav-link">
+              <a href="{{ route('ledgers.index') }}" class="nav-link">
                 <i class="nav-icon bi bi-circle"></i>
-                <p>Exp. Types</p>
+                <p>Ledger</p>
               </a>
             </li>
-            <li class="nav-item">
-              <a href="{{ route('expenses.index') }}" class="nav-link">
+            <!-- <li class="nav-item">
+              <a href="{{ route('ledgers.index') }}" class="nav-link">
                 <i class="nav-icon bi bi-circle"></i>
-                <p>Exp. List</p>
+                <p>Ledger List</p>
               </a>
-            </li>
+            </li> -->
             
           </ul>
         </li>
