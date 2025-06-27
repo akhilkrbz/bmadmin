@@ -14,8 +14,7 @@ class PaymentVoucher extends Model
     protected $fillable = [
         'voucher_number',
         'voucher_date',
-        'voucher_type',
-        'voucher_type_id',
+        'ledger_id',
         'amount',
         'payment_mode',
         'description',
@@ -28,5 +27,10 @@ class PaymentVoucher extends Model
     public function creator()
     {
         return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function ledger()
+    {
+        return $this->belongsTo(Ledger::class, 'ledger_id');
     }
 }

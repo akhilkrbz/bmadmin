@@ -131,7 +131,7 @@
 
         <li class="nav-item">
           <a href="#" class="nav-link">
-            <i class="nav-icon bi bi-cart"></i>
+            <i class="nav-icon bi bi-bag-check"></i>
             <p>
               Purchase
               <i class="nav-arrow bi bi-chevron-right"></i>
@@ -157,7 +157,7 @@
 
         <li class="nav-item">
           <a href="#" class="nav-link">
-            <i class="nav-icon bi bi-cart"></i>
+            <i class="nav-icon bi bi-credit-card"></i>
             <p>
               Voucher
               <i class="nav-arrow bi bi-chevron-right"></i>

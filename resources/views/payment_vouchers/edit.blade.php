@@ -29,52 +29,46 @@
                             @csrf
                             @method('PUT')
                             <div class="card-body">
-                                <!-- <div class="row mb-3">
-                                    <label class="col-sm-2 col-form-label">Voucher Number</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" name="voucher_number" class="form-control" value="{{ old('voucher_number', $payment_voucher->voucher_number) }}">
-                                    </div>
-                                </div> -->
+                                
                                 <div class="row mb-3">
                                     <label class="col-sm-2 col-form-label">Voucher Date</label>
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-4">
                                         <input type="date" name="voucher_date" class="form-control" value="{{ old('voucher_date', $payment_voucher->voucher_date) }}">
                                     </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <label class="col-sm-2 col-form-label">Voucher Type</label>
+
+                                    <label class="col-sm-2 col-form-label">Ledger</label>
                                     <div class="col-sm-4">
-                                        <select name="voucher_type" class="form-control">
-                                            <option value="ledger" {{ old('voucher_type', $payment_voucher->voucher_type) == 'ledger' ? 'selected' : '' }}>Ledger</option>
-                                            <option value="purchase" {{ old('voucher_type', $payment_voucher->voucher_type) == 'purchase' ? 'selected' : '' }}>Purchase</option>
-                                        </select>
-                                    </div>
-                                    <label class="col-sm-2 col-form-label">Voucher Type ID</label>
-                                    <div class="col-sm-4">
-                                        <select name="voucher_type_id" id="voucher_type_id" class="form-control select2">
-                                            <!-- Options will be populated by JS -->
+                                        <select name="ledger_id" id="ledger_id" class="form-control select2" required>
+                                            <option value="">Select Ledger</option>
+                                            @foreach($ledgers as $ledger)
+                                                <option data-ledger_type="{{ $ledger->type }}" value="{{ $ledger->id }}" {{ $payment_voucher->ledger_id == $ledger->id ? 'selected' : '' }}>{{ $ledger->title }}</option>
+                                            @endforeach
                                         </select>
                                         <div id="total-amount-info" class="mt-2 text-info"></div>
+                                        <input type="hidden" id="total-amount-balance">
                                     </div>
+
                                 </div>
+                                
                                 <div class="row mb-3">
                                     <label class="col-sm-2 col-form-label">Amount</label>
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-4">
                                         <input type="number" step="0.01" name="amount" class="form-control" value="{{ old('amount', $payment_voucher->amount) }}">
                                     </div>
-                                </div>
-                                <div class="row mb-3">
+
                                     <label class="col-sm-2 col-form-label">Payment Mode</label>
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-4">
                                         <select name="payment_mode" class="form-control">
                                             <option value="cash" {{ old('payment_mode', $payment_voucher->payment_mode) == 'cash' ? 'selected' : '' }}>Cash</option>
                                             <option value="bank" {{ old('payment_mode', $payment_voucher->payment_mode) == 'bank' ? 'selected' : '' }}>Bank</option>
                                         </select>
                                     </div>
+
                                 </div>
+                                
                                 <div class="row mb-3">
                                     <label class="col-sm-2 col-form-label">Description</label>
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-4">
                                         <textarea name="description" class="form-control">{{ old('description', $payment_voucher->description) }}</textarea>
                                     </div>
                                 </div>
@@ -90,46 +84,47 @@
         </div>
     </div>
 </main>
-<script>
-    const ledgers = @json($ledgers ?? []);
-    const purchases = @json($purchases ?? []);
-    function populateVoucherTypeId() {
-        const type = document.querySelector('[name="voucher_type"]').value;
-        const select = document.getElementById('voucher_type_id');
-        select.innerHTML = '';
-        let options = '';
-        if(type === 'ledger') {
-            options += '<option value="">Select Ledger</option>';
-            ledgers.forEach(l => {
-                options += `<option value="${l.id}" ${l.id == {{ old('voucher_type_id', $payment_voucher->voucher_type_id) }} ? 'selected' : ''}>${l.title}</option>`;
-            });
-        } else {
-            options += '<option value="">Select Purchase</option>';
-            purchases.forEach(p => {
-                options += `<option value="${p.id}" ${p.id == {{ old('voucher_type_id', $payment_voucher->voucher_type_id) }} ? 'selected' : ''}>${p.supplier.title} - ${p.voucher_number || p.bill_no || ''}</option>`;
-            });
-        }
-        select.innerHTML = options;
-    }
-    document.querySelector('[name="voucher_type"]').addEventListener('change', populateVoucherTypeId);
-    document.addEventListener('DOMContentLoaded', populateVoucherTypeId);
 
-    // AJAX to get total amount for selected voucher_type_id
-    document.getElementById('voucher_type_id').addEventListener('change', function() {
-        const voucherType = document.querySelector('[name="voucher_type"]').value;
-        const voucherTypeId = this.value;
-        if (!voucherTypeId) return;
-        fetch(`/payment-vouchers/total-amount?voucher_type=${voucherType}&voucher_type_id=${voucherTypeId}`)
-            .then(response => response.json())
-            .then(data => {
-                if (data && typeof data.total_amount !== 'undefined') {
-                    document.getElementById('total-amount-info').innerText = 'Total payment voucher amount for this selection: ' + data.total_amount;
-                    document.getElementById('total-amount-info').style.display = 'block';
-                } else {
-                    document.getElementById('total-amount-info').innerText = '';
-                    document.getElementById('total-amount-info').style.display = 'none';
-                }
-            });
+@endsection
+
+@push('scripts')
+<script>
+    const BASE_URL = "http://localhost/bmadmin/public/";
+    $(document).ready(function() {
+        
+        $('#ledger_id').on("change", function() {
+            var ledger_id = $(this).val();
+            var ledger_type = $(this).find('option:selected').data('ledger_type');
+
+            $('#total-amount-info').text('');
+            $('#total-amount-balance').val('');
+
+            if (!ledger_id) {
+                return;
+            }
+
+            if(ledger_type == 'supplier') {
+                $.ajax({
+                    url: BASE_URL + 'payment-vouchers/total-amount?ledger_id=' + ledger_id,
+                    method: 'GET',
+                    success: function(data) {
+                        if (data && typeof data.total_amount !== 'undefined') {
+                            $('#total-amount-info').text('Balance amount: ' + data.total_amount + ' /-');
+                            $('#total-amount-balance').val(data.total_amount);
+                        } else {
+                            $('#total-amount-info').text('');
+                            $('#total-amount-balance').val('');
+                        }
+                    },
+                    error: function() {
+                        $('#total-amount-info').text('Error fetching total amount');
+                        $('#total-amount-balance').val('');
+                    }
+                });
+            }
+            
+        });
+        
     });
 </script>
-@endsection
+@endpush

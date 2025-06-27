@@ -10,7 +10,7 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-end">
                             <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Ledger List</li>
+                            <li class="breadcrumb-item active" aria-current="page">Ledgers</li>
                         </ol>
                     </div>
                 </div>
@@ -23,16 +23,16 @@
                         @include('common.alerts')
                         <div class="card mb-4">
                             <div class="card-header">
-                                <h3 class="card-title">Ledger List</h3>
-                                <a href="{{ route('ledgers.create') }}" class="btn btn-primary float-end">Add Ledger</a>
+                                <h3 class="card-title">Ledgers</h3>
+                                <a href="{{ route('ledgers.create') }}" class="btn btn-success float-end">Create Ledger</a>
                             </div>
                             <div class="card-body">
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
                                             <th>Sl.No.</th>
-                                            <th>Type</th>
-                                            <th>Title</th>
+                                            <th>Group</th>
+                                            <th>Ledger Name</th>
                                             <th>Description</th>
                                             <th>Actions</th>
                                         </tr>

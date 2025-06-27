@@ -33,8 +33,8 @@
                                         <th>Sl.No.</th>
                                         <th>Voucher Number</th>
                                         <th>Date</th>
-                                        <th>Type</th>
-                                        <th>Amount</th>
+                                        <th>Ledger</th>
+                                        <th>Amount (₹)</th>
                                         <th>Payment Mode</th>
                                         <th>Created By</th>
                                         <th>Actions</th>
@@ -45,8 +45,8 @@
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
                                             <td>{{ $voucher->voucher_number }}</td>
-                                            <td>{{ $voucher->voucher_date }}</td>
-                                            <td>{{ ucfirst($voucher->voucher_type) }}</td>
+                                            <td>{{ date('d-m-Y', strtotime($voucher->voucher_date)) }}</td>
+                                            <td>{{ ucfirst($voucher->ledger->title) }}</td>
                                             <td>{{ $voucher->amount }}</td>
                                             <td>{{ ucfirst($voucher->payment_mode) }}</td>
                                             <td>{{ $voucher->creator?->name }}</td>

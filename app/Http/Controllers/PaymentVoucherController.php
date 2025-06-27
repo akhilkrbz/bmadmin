@@ -22,20 +22,11 @@ class PaymentVoucherController extends Controller
         $users = User::all();
         $ledgers = Ledger::where('type', 'direct')
             ->orWhere('type', 'indirect')
+            ->orWhere('type', 'supplier')
             ->orderBy('title')
             ->get();
-        // Only get purchases where purchase total_amount > sum of payment vouchers for that purchase
-        $purchases = Purchase::with('supplier')
-            ->where('payment_mode', 'credit')
-            ->where(function($query) {
-                $query->whereRaw('total_amount > (
-                    SELECT COALESCE(SUM(amount),0) FROM payment_vouchers 
-                    WHERE voucher_type = ? AND voucher_type_id = purchases.id
-                )', ['purchase']);
-            })
-            ->orderBy('purchase_date', 'desc')
-            ->get();
-        return view('payment_vouchers.create', compact('users', 'ledgers', 'purchases'));
+        
+        return view('payment_vouchers.create', compact('users', 'ledgers'));
     }
 
     public function store(Request $request)
@@ -43,8 +34,7 @@ class PaymentVoucherController extends Controller
         $validated = $request->validate([
             'voucher_number' => 'nullable|string|max:20',
             'voucher_date' => 'nullable|date',
-            'voucher_type' => 'required|in:ledger,purchase',
-            'voucher_type_id' => 'nullable|integer',
+            'ledger_id' => 'nullable|exists:ledgers,id',
             'amount' => 'nullable|numeric',
             'payment_mode' => 'required|in:cash,bank',
             'description' => 'nullable|string',
@@ -72,7 +62,12 @@ class PaymentVoucherController extends Controller
     public function edit(PaymentVoucher $payment_voucher)
     {
         $users = User::all();
-        return view('payment_vouchers.edit', compact('payment_voucher', 'users'));
+        $ledgers = Ledger::where('type', 'direct')
+            ->orWhere('type', 'indirect')
+            ->orWhere('type', 'supplier')
+            ->orderBy('title')
+            ->get();
+        return view('payment_vouchers.edit', compact('payment_voucher', 'users', 'ledgers'));
     }
 
     public function update(Request $request, PaymentVoucher $payment_voucher)
@@ -80,8 +75,7 @@ class PaymentVoucherController extends Controller
         $validated = $request->validate([
             'voucher_number' => 'nullable|string|max:20',
             'voucher_date' => 'nullable|date',
-            'voucher_type' => 'required|in:ledger,purchase',
-            'voucher_type_id' => 'nullable|integer',
+            'ledger_id' => 'nullable|exists:ledgers,id',
             'amount' => 'nullable|numeric',
             'payment_mode' => 'required|in:cash,bank',
             'description' => 'nullable|string',
@@ -106,19 +100,17 @@ class PaymentVoucherController extends Controller
 
     public function getTotalAmount(Request $request)
     {
-        $voucherType = $request->query('voucher_type');
-        $voucherTypeId = $request->query('voucher_type_id');
-        if (!$voucherType || !$voucherTypeId) {
+        $ledger_id = $request->query('ledger_id');
+        if (!$ledger_id) {
             return response()->json(['total_amount' => 0]);
         }
-        $total = PaymentVoucher::where('voucher_type', $voucherType)
-            ->where('voucher_type_id', $voucherTypeId)
+        $total = PaymentVoucher::where('ledger_id', $ledger_id)
             ->sum('amount');
 
         //Purchase amount
-        $purchase_amount = Purchase::select('total_amount')->where('id', $voucherTypeId)
+        $purchase_amount = Purchase::select('total_amount')->where('supplier_id', $ledger_id)
             ->where('payment_mode', 'credit')
-            ->first()->total_amount ?? 0;
+            ->sum('total_amount') ?? 0;
         return response()->json(['total_amount' => $purchase_amount - $total]);
     }
 }

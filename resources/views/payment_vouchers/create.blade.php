@@ -29,32 +29,24 @@
                             @csrf
                             <div class="card-body">
                                 <div class="row mb-3">
-                                    <!-- <label class="col-sm-2 col-form-label">Voucher Number</label>
-                                    <div class="col-sm-4">
-                                        <input type="text" name="voucher_number" class="form-control" value="{{ old('voucher_number') }}">
-                                    </div> -->
+                                    
                                     <label class="col-sm-2 col-form-label">Voucher Date</label>
                                     <div class="col-sm-4">
                                         <input type="text" name="voucher_date" class="form-control datepicker" value="{{ old('voucher_date') }}" required>
                                     </div>
-                                </div>
-                                
-                                <div class="row mb-3">
-                                    <label class="col-sm-2 col-form-label">Voucher Type</label>
+
+                                    <label class="col-sm-2 col-form-label">Ledger</label>
                                     <div class="col-sm-4">
-                                        <select name="voucher_type" class="form-control" required>
-                                            <option value="ledger" {{ old('voucher_type') == 'ledger' ? 'selected' : '' }}>Ledger</option>
-                                            <option value="purchase" {{ old('voucher_type') == 'purchase' ? 'selected' : '' }}>Purchase</option>
-                                        </select>
-                                    </div>
-                                    <label class="col-sm-2 col-form-label">Voucher Type ID</label>
-                                    <div class="col-sm-4">
-                                        <select name="voucher_type_id" id="voucher_type_id" class="form-control" required>
-                                            <!-- Options will be populated by JS -->
+                                        <select name="ledger_id" id="ledger_id" class="form-control select2" required>
+                                            <option value="">Select Ledger</option>
+                                            @foreach($ledgers as $ledger)
+                                                <option data-ledger_type="{{ $ledger->type }}" value="{{ $ledger->id }}" {{ old('ledger_id') == $ledger->id ? 'selected' : '' }}>{{ $ledger->title }}</option>
+                                            @endforeach
                                         </select>
                                         <div id="total-amount-info" class="mt-2 text-info"></div>
                                         <input type="hidden" id="total-amount-balance">
                                     </div>
+
                                 </div>
                                 
                                 <div class="row mb-3">
@@ -90,86 +82,49 @@
     </div>
 </main>
 <script>
-    const ledgers = @json($ledgers ?? []);
-    const purchases = @json($purchases ?? []);
-    function populateVoucherTypeId() {
-        const type = document.querySelector('[name="voucher_type"]').value;
-        const select = document.getElementById('voucher_type_id');
-        select.innerHTML = '';
-        let options = '';
-        if(type === 'ledger') {
-            options += '<option value="">Select Ledger</option>';
-            ledgers.forEach(l => {
-                options += `<option value="${l.id}">${l.title}</option>`;
-            });
-        } else {
-            options += '<option value="">Select Purchase</option>';
-            purchases.forEach(p => {
-                options += `<option value="${p.id}">${p.supplier.title} - ${p.voucher_number || p.bill_no || ''}</option>`;
-            });
-        }
-        select.innerHTML = options;
-    }
-    function addVoucherTypeIdListener() {
-        const voucherTypeIdSelect = $('#voucher_type_id');
-        if (!voucherTypeIdSelect.length) return;
-        voucherTypeIdSelect.off('change').on('change', handleVoucherTypeIdChange);
-    }
-    function handleVoucherTypeIdChange() {
-        const voucherType = document.querySelector('[name="voucher_type"]').value;
-        const voucherTypeId = this.value;
-        const amountInput = document.querySelector('input[name="amount"]');
-        document.getElementById('total-amount-info').innerText = '';
-        document.getElementById('total-amount-balance').value = '';
-        if(voucherType == 'purchase') {
-            if (!voucherTypeId) return;
-            let baseUrl = 'http://localhost/bmadmin/public/';//document.querySelector('base') ? document.querySelector('base').href : window.location.origin;
-            if (baseUrl.endsWith('/')) baseUrl = baseUrl.slice(0, -1);
-            const apiUrl = `${baseUrl}/payment-vouchers/total-amount?voucher_type=${voucherType}&voucher_type_id=${voucherTypeId}`;
-            fetch(apiUrl)
-                .then(response => response.json())
-                .then(data => {
-                    if (data && typeof data.total_amount !== 'undefined') {
-                        document.getElementById('total-amount-info').innerText = 'Balance amount: ' + data.total_amount + ' /-';
-                        document.getElementById('total-amount-balance').value = data.total_amount;
-                        document.getElementById('total-amount-info').style.display = 'block';
-                        if (amountInput) {
-                            amountInput.setAttribute('max', data.total_amount);
+    
+</script>
+
+@endsection
+
+@push('scripts')
+<script>
+    const BASE_URL = "http://localhost/bmadmin/public/";
+    $(document).ready(function() {
+        
+        $('#ledger_id').on("change", function() {
+            var ledger_id = $(this).val();
+            var ledger_type = $(this).find('option:selected').data('ledger_type');
+
+            $('#total-amount-info').text('');
+            $('#total-amount-balance').val('');
+
+            if (!ledger_id) {
+                return;
+            }
+
+            if(ledger_type == 'supplier') {
+                $.ajax({
+                    url: BASE_URL + 'payment-vouchers/total-amount?ledger_id=' + ledger_id,
+                    method: 'GET',
+                    success: function(data) {
+                        if (data && typeof data.total_amount !== 'undefined') {
+                            $('#total-amount-info').text('Balance amount: ' + data.total_amount + ' /-');
+                            $('#total-amount-balance').val(data.total_amount);
+                        } else {
+                            $('#total-amount-info').text('');
+                            $('#total-amount-balance').val('');
                         }
-                    } else {
-                        document.getElementById('total-amount-info').innerText = '';
-                        document.getElementById('total-amount-info').style.display = 'none';
-                        document.getElementById('total-amount-balance').value = '';
-                        if (amountInput) {
-                            amountInput.removeAttribute('max');
-                        }
+                    },
+                    error: function() {
+                        $('#total-amount-info').text('Error fetching total amount');
+                        $('#total-amount-balance').val('');
                     }
                 });
-        } else {
-            // Remove max if not purchase
-            if (amountInput) {
-                amountInput.removeAttribute('max');
             }
-        }
-    }
-    document.querySelector('[name="voucher_type"]').addEventListener('change', function() {
-        document.getElementById('total-amount-info').innerText = '';
-        document.getElementById('total-amount-balance').value = '';
-        populateVoucherTypeId();
-        setTimeout(addVoucherTypeIdListener, 100); // Wait for select2 to re-init
-    });
-    document.addEventListener('DOMContentLoaded', function() {
-        populateVoucherTypeId();
-        setTimeout(addVoucherTypeIdListener, 100);
-        // Set max attribute on load if purchase type is selected and balance exists
-        const voucherType = document.querySelector('[name="voucher_type"]').value;
-        const amountInput = document.querySelector('input[name="amount"]');
-        const balance = document.getElementById('total-amount-balance').value;
-        if (voucherType === 'purchase' && balance && amountInput) {
-            amountInput.setAttribute('max', balance);
-        } else if (amountInput) {
-            amountInput.removeAttribute('max');
-        }
+            
+        });
+        
     });
 </script>
-@endsection
+@endpush

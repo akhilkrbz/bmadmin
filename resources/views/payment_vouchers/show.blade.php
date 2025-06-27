@@ -26,26 +26,23 @@
                         </div>
                         <div class="card-body">
                             <table class="table table-bordered">
-                                <tr>
+                                <!-- <tr>
                                     <th>ID</th>
                                     <td>{{ $payment_voucher->id }}</td>
-                                </tr>
+                                </tr> -->
                                 <tr>
                                     <th>Voucher Number</th>
                                     <td>{{ $payment_voucher->voucher_number }}</td>
                                 </tr>
                                 <tr>
                                     <th>Date</th>
-                                    <td>{{ $payment_voucher->voucher_date }}</td>
+                                    <td>{{ date('d-m-Y', strtotime($payment_voucher->voucher_date)) }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Type</th>
-                                    <td>{{ ucfirst($payment_voucher->voucher_type) }}</td>
+                                    <th>Ledger</th>
+                                    <td>{{ ucfirst($payment_voucher->ledger->title) }}</td>
                                 </tr>
-                                <tr>
-                                    <th>Type ID</th>
-                                    <td>{{ $payment_voucher->voucher_type_id }}</td>
-                                </tr>
+                                
                                 <tr>
                                     <th>Amount</th>
                                     <td>{{ $payment_voucher->amount }}</td>
@@ -64,7 +61,7 @@
                                 </tr>
                                 <tr>
                                     <th>Created At</th>
-                                    <td>{{ $payment_voucher->created_at }}</td>
+                                    <td>{{ date('d-m-Y', strtotime($payment_voucher->created_at)) }}</td>
                                 </tr>
                             </table>
                         </div>
