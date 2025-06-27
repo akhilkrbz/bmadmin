@@ -5,12 +5,12 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-6">
-                    <h3 class="mb-0">Payment Voucher Details</h3>
+                    <h3 class="mb-0">Voucher Details</h3>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-end">
                         <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Payment Voucher Details</li>
+                        <li class="breadcrumb-item active" aria-current="page">Voucher Details</li>
                     </ol>
                 </div>
             </div>
@@ -22,7 +22,7 @@
                 <div class="col-md-10">
                     <div class="card card-warning card-outline mb-4">
                         <div class="card-header">
-                            <div class="card-title">Payment Voucher Details</div>
+                            <div class="card-title">Voucher Details</div>
                         </div>
                         <div class="card-body">
                             <table class="table table-bordered">
@@ -45,7 +45,7 @@
                                 
                                 <tr>
                                     <th>Amount</th>
-                                    <td>{{ $payment_voucher->amount }}</td>
+                                    <td>{{ $payment_voucher->amount }} /-</td>
                                 </tr>
                                 <tr>
                                     <th>Payment Mode</th>

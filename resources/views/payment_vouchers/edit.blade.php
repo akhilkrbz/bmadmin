@@ -5,12 +5,12 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-6">
-                    <h3 class="mb-0">Edit Payment Voucher</h3>
+                    <h3 class="mb-0">Edit Voucher</h3>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-end">
                         <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Edit Payment Voucher</li>
+                        <li class="breadcrumb-item active" aria-current="page">Edit Voucher</li>
                     </ol>
                 </div>
             </div>
@@ -23,7 +23,7 @@
                     @include('common.alerts')
                     <div class="card card-warning card-outline mb-4">
                         <div class="card-header">
-                            <div class="card-title">Edit Payment Voucher</div>
+                            <div class="card-title">Edit Voucher</div>
                         </div>
                         <form action="{{ route('payment_vouchers.update', $payment_voucher) }}" method="POST">
                             @csrf
@@ -33,7 +33,7 @@
                                 <div class="row mb-3">
                                     <label class="col-sm-2 col-form-label">Voucher Date</label>
                                     <div class="col-sm-4">
-                                        <input type="date" name="voucher_date" class="form-control" value="{{ old('voucher_date', $payment_voucher->voucher_date) }}">
+                                        <input type="text" name="voucher_date" class="form-control datepicker" value="{{ old('voucher_date', date('d-m-Y', strtotime($payment_voucher->voucher_date))) }}">
                                     </div>
 
                                     <label class="col-sm-2 col-form-label">Ledger</label>

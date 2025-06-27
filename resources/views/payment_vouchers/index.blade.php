@@ -5,12 +5,12 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-6">
-                    <h3 class="mb-0">Payment Vouchers List</h3>
+                    <h3 class="mb-0">Voucher List</h3>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-end">
                         <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Payment Vouchers List</li>
+                        <li class="breadcrumb-item active" aria-current="page">Voucher List</li>
                     </ol>
                 </div>
             </div>
@@ -23,8 +23,8 @@
                     @include('common.alerts')
                     <div class="card mb-4">
                         <div class="card-header">
-                            <h3 class="card-title">Payment Vouchers List</h3>
-                            <a href="{{ route('payment_vouchers.create') }}" class="btn btn-success position-relative float-end">Add Voucher</a>
+                            <h3 class="card-title">Vouchers</h3>
+                            <a href="{{ route('payment_vouchers.create') }}" class="btn btn-success position-relative float-end">Create Voucher</a>
                         </div>
                         <div class="card-body">
                             <table class="table table-bordered">
