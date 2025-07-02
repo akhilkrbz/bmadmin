@@ -69,10 +69,10 @@
                                     <div id="items-container">
                                         <div class="row mb-2 item-row">
                                             <div class="col">
-                                                <select name="items[0][product_id]" class="form-control" required>
+                                                <select name="items[0][product_id]" class="form-control product-select" required onchange="setMRP(this)">
                                                     <option value="">Select Product</option>
                                                     @foreach($products as $product)
-                                                        <option value="{{ $product->id }}">{{ $product->product_name }}</option>
+                                                        <option value="{{ $product->id }}" data-mrp="{{ $product->mrp }}">{{ $product->product_name }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -80,7 +80,7 @@
                                                 <input type="number" name="items[0][quantity]" class="form-control" placeholder="Quantity" min="1" required>
                                             </div>
                                             <div class="col">
-                                                <input type="number" step="0.01" name="items[0][mrp]" class="form-control" placeholder="MRP" required>
+                                                <input type="number" step="0.01" name="items[0][mrp]" class="form-control mrp-input" placeholder="MRP" readonly required>
                                             </div>
                                             <div class="col">
                                                 <input type="number" step="0.01" name="items[0][amount]" class="form-control" placeholder="Amount" required>
@@ -111,10 +111,10 @@ document.getElementById('add-item').onclick = function() {
     row.className = 'row mb-2 item-row';
     row.innerHTML = `
         <div class="col">
-            <select name="items[${itemIndex}][product_id]" class="form-control" required>
+            <select name="items[${itemIndex}][product_id]" class="form-control product-select" required onchange="setMRP(this)">
                 <option value="">Select Product</option>
                 @foreach($products as $product)
-                    <option value="{{ $product->id }}">{{ $product->product_name }}</option>
+                    <option value="{{ $product->id }}" data-mrp="{{ $product->mrp }}">{{ $product->product_name }}</option>
                 @endforeach
             </select>
         </div>
@@ -122,7 +122,7 @@ document.getElementById('add-item').onclick = function() {
             <input type="number" name="items[${itemIndex}][quantity]" class="form-control" placeholder="Quantity" min="1" required>
         </div>
         <div class="col">
-            <input type="number" step="0.01" name="items[${itemIndex}][mrp]" class="form-control" placeholder="MRP" required>
+            <input type="number" step="0.01" name="items[${itemIndex}][mrp]" class="form-control mrp-input" placeholder="MRP" readonly required>
         </div>
         <div class="col">
             <input type="number" step="0.01" name="items[${itemIndex}][amount]" class="form-control" placeholder="Amount" required>
@@ -134,10 +134,24 @@ document.getElementById('add-item').onclick = function() {
     container.appendChild(row);
     itemIndex++;
 };
+function setMRP(select) {
+    const mrp = select.options[select.selectedIndex].getAttribute('data-mrp');
+    const row = select.closest('.item-row');
+    if(row) {
+        const mrpInput = row.querySelector('.mrp-input');
+        if(mrpInput) mrpInput.value = mrp || '';
+    }
+}
 document.addEventListener('click', function(e) {
     if (e.target && e.target.classList.contains('remove-item')) {
         e.target.closest('.item-row').remove();
     }
+});
+// Set MRP for first row if product is selected
+window.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.product-select').forEach(function(select) {
+        select.addEventListener('change', function() { setMRP(this); });
+    });
 });
 </script>
 @endsection
