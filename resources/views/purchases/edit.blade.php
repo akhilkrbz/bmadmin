@@ -34,7 +34,7 @@
                                     <div class="row mb-3">
                                         <label class="col-sm-2 col-form-label">Purchase Date</label>
                                         <div class="col-sm-4">
-                                            <input type="text" name="purchase_date" class="form-control datepicker" value="{{ old('purchase_date', $purchase->purchase_date) }}">
+                                            <input type="text" name="purchase_date" class="form-control datepicker" value="{{ old('purchase_date', date('d-m-Y', strtotime($purchase->purchase_date))) }}">
                                         </div>
                                         <label class="col-sm-2 col-form-label">Bill No</label>
                                         <div class="col-sm-4">

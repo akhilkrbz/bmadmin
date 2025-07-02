@@ -206,6 +206,31 @@
           </ul>
         </li>
 
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="nav-icon bi bi-credit-card"></i>
+            <p>
+              Receipts
+              <i class="nav-arrow bi bi-chevron-right"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{ route('receipts.index') }}" class="nav-link">
+                <i class="nav-icon bi bi-circle"></i>
+                <p>Receipts</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ route('receipts.create') }}" class="nav-link">
+                <i class="nav-icon bi bi-circle"></i>
+                <p>New Receipt</p>
+              </a>
+            </li>
+            
+          </ul>
+        </li>
+
 
         <li class="nav-item">
           <a href="#" class="nav-link">

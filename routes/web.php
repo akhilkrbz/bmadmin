@@ -46,3 +46,7 @@ Route::resource('customer', CustomerController::class);
 // Sales
 Route::resource('sales', App\Http\Controllers\SaleController::class);
 Route::get('sale-items', [App\Http\Controllers\SaleItemController::class, 'index'])->name('sale_items.index');
+
+// Receipts
+Route::resource('receipts', App\Http\Controllers\ReceiptController::class);
+Route::get('receipt/total-amount', [App\Http\Controllers\ReceiptController::class, 'getTotalAmount']);
