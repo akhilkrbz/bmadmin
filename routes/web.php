@@ -42,3 +42,7 @@ Route::get('payment-vouchers/total-amount', [PaymentVoucherController::class, 'g
 
 // Customers
 Route::resource('customer', CustomerController::class);
+
+// Sales
+Route::resource('sales', App\Http\Controllers\SaleController::class);
+Route::get('sale-items', [App\Http\Controllers\SaleItemController::class, 'index'])->name('sale_items.index');

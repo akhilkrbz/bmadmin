@@ -191,13 +191,13 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="./widgets/small-box.html" class="nav-link">
+              <a href="{{ route('sales.index') }}" class="nav-link">
                 <i class="nav-icon bi bi-circle"></i>
                 <p>Sales List</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="./widgets/info-box.html" class="nav-link">
+              <a href="{{ route('sales.create') }}" class="nav-link">
                 <i class="nav-icon bi bi-circle"></i>
                 <p>New Sale</p>
               </a>
