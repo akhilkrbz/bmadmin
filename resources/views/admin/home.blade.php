@@ -90,8 +90,8 @@
                 <!--begin::Small Box Widget 3-->
                 <div class="small-box text-bg-warning">
                   <div class="inner">
-                    <h3>44</h3>
-                    <p>Monthly Sales</p>
+                    <h3>₹ {{ $monthly_sales }}</h3>
+                    <p>Monthly Sales ({{ now()->format('M') }})</p>
                   </div>
                   <svg
                     class="small-box-icon"
