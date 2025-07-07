@@ -9,6 +9,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\PaymentVoucherController;
+use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -50,3 +51,7 @@ Route::get('sale-items', [App\Http\Controllers\SaleItemController::class, 'index
 // Receipts
 Route::resource('receipts', App\Http\Controllers\ReceiptController::class);
 Route::get('receipt/total-amount', [App\Http\Controllers\ReceiptController::class, 'getTotalAmount']);
+
+//Reports
+Route::get('reports/expenses', [ReportController::class, 'expenses'])->name('reports.expenses');
+Route::get('reports/get_expenses', [ReportController::class, 'getExpenses'])->name('reports.expenses');
