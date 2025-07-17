@@ -27,12 +27,12 @@ class BackupDatabase extends Command
     public function handle()
     {
         $filename = 'backup-' . Carbon::now()->format('Y-m-d_H-i-s') . '.sql';
-        $path = storage_path('app/backups/' . $filename);
+        $path = public_path('app/backups/' . $filename);
         $filePath = "{$path}";
 
         // Ensure backup directory exists
-        if (!is_dir(storage_path('app/backups'))) {
-            mkdir(storage_path('app/backups'), 0777, true);
+        if (!is_dir(public_path('app/backups'))) {
+            mkdir(public_path('app/backups'), 0777, true);
         }
 
         $db = config('database.connections.mysql');
