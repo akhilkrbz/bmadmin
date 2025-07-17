@@ -10,6 +10,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\PaymentVoucherController;
 use App\Http\Controllers\ReportController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -54,4 +55,10 @@ Route::get('receipt/total-amount', [App\Http\Controllers\ReceiptController::clas
 
 //Reports
 Route::get('reports/expenses', [ReportController::class, 'expenses'])->name('reports.expenses');
-Route::get('reports/get_expenses', [ReportController::class, 'getExpenses'])->name('reports.expenses');
+Route::get('reports/get_expenses', [ReportController::class, 'getExpenses'])->name('reports.getexpenses');
+
+//DB backup
+Route::get('db-backup', function (){
+    Artisan::call('backup:mysql');
+    return view('db-backup'); // Placeholder for DB backup functionality
+})->name('db-backup');

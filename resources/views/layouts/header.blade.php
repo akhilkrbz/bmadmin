@@ -63,7 +63,7 @@
           <!--end::Menu Body-->
           <!--begin::Menu Footer-->
           <li class="user-footer">
-            <!-- <a href="#" class="btn btn-default btn-flat">Profile</a> -->
+            <a href="{{ route('db-backup') }}" onclick="return confirm('Are you sure want to take the backup ?')" class="btn btn-default btn-flat">Data Backup</a>
             <a href="#" class="btn btn-default btn-flat float-end">Sign out</a>
           </li>
           <!--end::Menu Footer-->
