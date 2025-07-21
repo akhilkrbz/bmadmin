@@ -53,17 +53,8 @@
                                                 <option value="credit">Credit</option>
                                             </select>
                                         </div>
-                                        <label class="col-sm-2 col-form-label">Total Amount</label>
-                                        <div class="col-sm-4">
-                                            <input type="number" step="0.01" name="total_amount" class="form-control" value="{{ old('total_amount') }}" required>
-                                        </div>
                                     </div>
-                                    <div class="row mb-3">
-                                        <label class="col-sm-2 col-form-label">Description</label>
-                                        <div class="col-sm-4">
-                                            <textarea name="description" class="form-control">{{ old('description') }}</textarea>
-                                        </div>
-                                    </div>
+                                    
                                     <hr>
                                     <h4>Sale Items</h4>
                                     <div id="items-container">
@@ -83,7 +74,7 @@
                                                 <input type="number" step="0.01" name="items[0][mrp]" class="form-control mrp-input" placeholder="MRP" readonly required>
                                             </div>
                                             <div class="col">
-                                                <input type="number" step="0.01" name="items[0][amount]" class="form-control" placeholder="Amount" required>
+                                                <input type="number" step="0.01" name="items[0][amount]" class="form-control amount-input" placeholder="Amount" required>
                                             </div>
                                             <div class="col-auto">
                                                 <button type="button" class="btn btn-danger remove-item">Remove</button>
@@ -91,6 +82,16 @@
                                         </div>
                                     </div>
                                     <button type="button" class="btn btn-secondary mb-3" id="add-item">Add Item</button>
+                                    <div class="row mb-3 justify-content-end">
+                                        <div class="col-sm-3">
+                                            <label class="col-form-label">Total Amount</label>
+                                            <input type="number" step="0.01" name="total_amount" id="total_amount" class="form-control" value="{{ old('total_amount') }}" required readonly>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label class="col-form-label">Description</label>
+                                            <textarea name="description" class="form-control">{{ old('description') }}</textarea>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="card-footer">
                                     <button type="submit" class="btn btn-warning">Save</button>
@@ -125,7 +126,7 @@ document.getElementById('add-item').onclick = function() {
             <input type="number" step="0.01" name="items[${itemIndex}][mrp]" class="form-control mrp-input" placeholder="MRP" readonly required>
         </div>
         <div class="col">
-            <input type="number" step="0.01" name="items[${itemIndex}][amount]" class="form-control" placeholder="Amount" required>
+            <input type="number" step="0.01" name="items[${itemIndex}][amount]" class="form-control amount-input" placeholder="Amount" required>
         </div>
         <div class="col-auto">
             <button type="button" class="btn btn-danger remove-item">Remove</button>
@@ -133,6 +134,8 @@ document.getElementById('add-item').onclick = function() {
     `;
     container.appendChild(row);
     itemIndex++;
+    attachAmountListeners();
+    updateTotalAmount();
 };
 function setMRP(select) {
     const mrp = select.options[select.selectedIndex].getAttribute('data-mrp');
@@ -142,16 +145,34 @@ function setMRP(select) {
         if(mrpInput) mrpInput.value = mrp || '';
     }
 }
+function updateTotalAmount() {
+    let total = 0;
+    document.querySelectorAll('.amount-input').forEach(function(input) {
+        let val = parseFloat(input.value);
+        if (!isNaN(val)) total += val;
+    });
+    document.getElementById('total_amount').value = total.toFixed(2);
+}
+function attachAmountListeners() {
+    document.querySelectorAll('.amount-input').forEach(function(input) {
+        input.removeEventListener('input', updateTotalAmount);
+        input.addEventListener('input', updateTotalAmount);
+    });
+}
 document.addEventListener('click', function(e) {
     if (e.target && e.target.classList.contains('remove-item')) {
         e.target.closest('.item-row').remove();
+        updateTotalAmount();
     }
 });
-// Set MRP for first row if product is selected
 window.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.product-select').forEach(function(select) {
         select.addEventListener('change', function() { setMRP(this); });
     });
+    document.querySelectorAll('.amount-input').forEach(function(input) {
+        input.addEventListener('input', updateTotalAmount);
+    });
+    updateTotalAmount();
 });
 </script>
 @endsection
